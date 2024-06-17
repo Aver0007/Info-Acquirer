@@ -60,7 +60,7 @@ function TopHeadlines() {
               />
             ))
           ) : (
-            <p>No articles found for this category or criteria.</p>
+            <p>No articles found this category or criteria.</p>
           )
         ) : (
           <Loader />
