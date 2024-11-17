@@ -357,3 +357,59 @@ footer {
     transform: rotate(1turn);
   }
 }
+/* Ensure the header layout is column-based for mobile view */
+@media (max-width: 689px) {
+  nav {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    position: relative; /* Position relative to place the hamburger correctly */
+  }
+
+  /* Adjust the logo for mobile */
+  .Info {
+    margin-bottom: 10px;
+    order: 1; /* Move the logo to the top in mobile view */
+  }
+
+  /* Stack the nav items horizontally under the logo and align them to the right */
+  .nav-ul {
+    flex-direction: column; /* Stack items vertically */
+    width: 100%;
+    gap: 10px; /* Adjust gap between items */
+    justify-content: flex-start;
+    padding-top: 0;
+    margin-top: 20px; /* Move the items slightly down */
+    align-items: flex-end; /* Align items to the right */
+  }
+
+  /* Add specific mobile styles for dropdown */
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary);
+  }
+
+  /* Mobile hamburger menu styles */
+  .ham-burger {
+    display: block;
+    margin-top: 10px;
+    position: absolute; /* Position it absolutely */
+    right: 10px; /* Align it to the right side */
+    top: 50%; /* Vertically center it */
+    transform: translateY(-50%); /* Adjust for perfect centering */
+  }
+
+  /* Adjust the checkboxes and labels */
+  .checkbox-label {
+    width: 50px;
+    height: 26px;
+  }
+
+  .checkbox-label .ball {
+    width: 22px;
+    height: 22px;
+  }
+}
