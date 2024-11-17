@@ -16,7 +16,8 @@ function AllNews() {
   }
   let pageSize = 30;
   useEffect(() => {
-    fetch(`http://localhost:3000/all-news?page=${page}&pageSize=${pageSize}`)
+    // fetch(`http://localhost:3000/all-news?page=${page}&pageSize=${pageSize}`)
+    fetch(`https://info-acquirer.onrender.com/all-news?page=${page}&pageSize=${pageSize}`)
       .then(response => {
         // console.log(response) 
         if (response.ok) {
