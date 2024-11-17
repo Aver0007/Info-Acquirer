@@ -19,54 +19,35 @@ function CountryNews() {
 
   const pageSize = 6;
 
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   fetch(`https://info-acquirer.onrender.com/country/${params.iso}?page=${page}&pageSize=${pageSize}`)
-  //     .then((response) => {
-  //       if (response.ok) {
-  //         return response.json();
-  //       } else {
-  //         // Handle errors gracefully, e.g., display an error message
-  //         console.error('Failed to fetch data:', response.statusText);
-  //         setIsLoading(false);
-  //         return null; // Prevent setting empty data if request fails
-  //       }
-  //     })
-  //     .then((myJson) => {
-  //       if (myJson) {
-  //         setTotalResults(myJson.data.totalResults);
-  //         setData(myJson.data.articles);
-  //       }
-  //       setIsLoading(false);
-  //     });
-  // }, [page, params.iso]);
-
   useEffect(() => {
     setIsLoading(true);
-    setError(null);
-    fetch(`https://news-aggregator-dusky.vercel.app/country/${params.iso}?page=${page}&pageSize=${pageSize}`)
+    fetch(`https://info-acquirer.onrender.com/country/${params.iso}?page=${page}&pageSize=${pageSize}`)
       .then((response) => {
+        console.log("Response status:", response.status); // Debugging line
         if (response.ok) {
           return response.json();
+        } else {
+          console.error('Failed to fetch data:', response.statusText);
+          setIsLoading(false);
+          return null;
         }
-        throw new Error('Network response was not ok');
       })
       .then((myJson) => {
-        if (myJson.success) {
-          setTotalResults(myJson.data.totalResults);
-          setData(myJson.data.articles);
-        } else {
-          setError(myJson.message || 'An error occurred');
+        console.log("API Response JSON:", myJson); // Debugging line
+        if (myJson) {
+          const total = myJson.data?.totalResults || 0;
+          setTotalResults(total);
+          setData(myJson.data?.articles || []);
         }
+        setIsLoading(false);
       })
       .catch((error) => {
-        console.error('Fetch error:', error);
-        setError('Failed to fetch news. Please try again later.');
-      })
-      .finally(() => {
+        console.error("Network or other error:", error);
         setIsLoading(false);
       });
   }, [page, params.iso]);
+  
+
 
   return (
     <>
