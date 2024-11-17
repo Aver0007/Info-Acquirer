@@ -193,75 +193,60 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Loader from './Components/Loader';
 import EverythingCard from './EverythingCard';
+import Loader from './Loader';
 
 function CountryNews() {
   const params = useParams();
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
-  const [totalResults, setTotalResults] = useState(0);
+  const [totalResults, setTotalResults] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  // Page size for pagination
-  const pageSize = 6;
-
-  // Debug: Log the ISO parameter to ensure it's correct
-  useEffect(() => {
-    console.log('Country ISO from URL params:', params.iso);
-  }, [params.iso]);
-
-  // Fetch news articles based on the country ISO and page number
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch(
-          `https://info-acquirer.onrender.com/country/${params.iso}?page=${page}&pageSize=${pageSize}`
-        );
-
-        // Debug: Check the response status
-        console.log('API response status:', response.status);
-
-        if (response.ok) {
-          const myJson = await response.json();
-
-          // Debug: Log the API response data structure
-          console.log('API Response Data:', myJson);
-
-          if (myJson && myJson.data) {
-            setTotalResults(myJson.data.totalResults);
-            setData(myJson.data.articles);
-          } else {
-            setData([]); // Set data to an empty array if no data is found
-          }
-        } else {
-          console.error('Failed to fetch data:', response.statusText);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [page, params.iso]);
-
-  // Pagination handlers
   function handlePrev() {
-    setPage((prevPage) => Math.max(prevPage - 1, 1));
+    setPage(page - 1);
   }
 
   function handleNext() {
-    setPage((prevPage) => prevPage + 1);
+    setPage(page + 1);
   }
+
+  const pageSize = 6;
+
+  useEffect(() => {
+    setIsLoading(true);
+    setError(null);
+    fetch(`https://info-acquirer.onrender.com/country/${params.iso}?page=${page}&pageSize=${pageSize}`)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Network response was not ok');
+      })
+      .then((myJson) => {
+        if (myJson.success) {
+          setTotalResults(myJson.data.totalResults);
+          setData(myJson.data.articles);
+        } else {
+          setError(myJson.message || 'An error occurred');
+        }
+      })
+      .catch((error) => {
+        console.error('Fetch error:', error);
+        setError('Failed to fetch news. Please try again later.');
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [page, params.iso]);
 
   return (
     <>
+      {error && <div className="text-red-500 mb-4">{error}</div>}
       <div className="my-10 cards grid lg:place-content-center md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 xs:grid-cols-1 xs:gap-4 md:gap-10 lg:gap-14 md:px-16 xs:p-3">
         {!isLoading ? (
-          data && data.length > 0 ? (
+          data.length > 0 ? (
             data.map((element, index) => (
               <EverythingCard
                 key={index}
