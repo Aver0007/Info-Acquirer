@@ -3,11 +3,8 @@ import { useState } from "react";
 import "./App.css";
 import Header from "./Components/Header";
 import AllNews from "./AllNews";
-// import Footer from "./components/Footer";
 import TopHeadlines from "./TopHeadlines";
 import CountryNews from "./CountryNews";
-
-
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 
