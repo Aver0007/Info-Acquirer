@@ -10,12 +10,13 @@ function CountryNews() {
   const [isLoading, setIsLoading] = useState(false);
 
   function handlePrev() {
-    setPage(page - 1);
+    setPage((prevPage) => Math.max(prevPage - 1, 1));
   }
-
+  
   function handleNext() {
-    setPage(page + 1);
+    setPage((prevPage) => prevPage + 1);
   }
+  
 
   const pageSize = 6;
 

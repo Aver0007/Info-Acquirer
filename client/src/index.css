@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .light-theme {
   --background: url("https://tailwindcss.com/_next/static/media/hero@75.b2469a49.jpg");
   --primary: #F8FAFC;

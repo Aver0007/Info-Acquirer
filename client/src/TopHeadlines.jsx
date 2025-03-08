@@ -22,12 +22,12 @@ function TopHeadlines() {
 
   useEffect(() => {
     setIsLoading(true);
-    const categoryParam = params.category ? `&category=${params.category}` : ""; // Handle empty category
+    const categoryParam = params.category ? `&category=${params.category}` : ""; 
     // fetch(`http://localhost:3000/top-headlines?language=en${categoryParam}&page=${page}&pageSize=${pageSize}`)
     fetch(`https://info-acquirer.onrender.com/top-headlines?language=en${categoryParam}&page=${page}&pageSize=${pageSize}`)
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Failed to fetch data'); // Throw error for unsuccessful responses
+          throw new Error('Failed to fetch data'); 
         }
         return response.clone().json();
       })
@@ -38,7 +38,6 @@ function TopHeadlines() {
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
-        // Display an error message to the user or retry the API call
         setIsLoading(false);
       });
   }, [page, params.category]);
