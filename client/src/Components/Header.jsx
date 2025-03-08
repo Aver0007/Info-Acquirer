@@ -6,27 +6,19 @@ function Header() {
   const [active, setActive] = useState(false);
   const [showCountryDropdown, setShowCountryDropdown] = useState(false);
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
-  const [theme, setTheme] = useState("light-theme");
   
-  let category = ["business", "entertainment", "general", "health", "science", "sports", "technology", "politics"];
-  
-  useEffect(() => {
-    document.body.className = theme;
-  }, [theme]);
-
+  let category = ["Business", "Entertainment", "General", "Health", "Science", "Sports", "Technology", "Politics"];
 
   const toggleCategoryDropdown = () => {
     setShowCategoryDropdown(!showCategoryDropdown);
     setShowCountryDropdown(false); 
   };
 
-
   const toggleCountryDropdown = () => {
     setShowCountryDropdown(!showCountryDropdown);
     setShowCategoryDropdown(false); 
   };
 
- 
   const closeCategoryDropdown = () => {
     setShowCategoryDropdown(false);
   };
@@ -34,15 +26,6 @@ function Header() {
   const closeCountryDropdown = () => {
     setShowCountryDropdown(false);
   };
-
-
-  function toggleTheme() {
-    if (theme === "light-theme") {
-      setTheme("dark-theme");
-    } else {
-      setTheme("light-theme");
-    }
-  }
 
   return (
     <header>
@@ -91,17 +74,6 @@ function Header() {
                 );
               })}
             </ul>
-          </li>
-
-          <li>
-            <Link className="no-underline font-semibold" to="#" onClick={toggleTheme}>
-              <input type="checkbox" className="checkbox" id="checkbox" />
-              <label htmlFor="checkbox" className="checkbox-label">
-                <i className="fas fa-moon"></i>
-                <i className="fas fa-sun"></i>
-                <span className="ball"></span>
-              </label>
-            </Link>
           </li>
         </ul>
 
