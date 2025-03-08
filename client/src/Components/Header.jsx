@@ -6,13 +6,13 @@ function Header() {
   const [active, setActive] = useState(false);
   const [showCountryDropdown, setShowCountryDropdown] = useState(false);
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
-  // const [theme, setTheme] = useState("light-theme");
+  const [theme, setTheme] = useState("light-theme");
   
   let category = ["business", "entertainment", "general", "health", "science", "sports", "technology", "politics"];
   
-  // useEffect(() => {
-  //   document.body.className = theme;
-  // }, [theme]);
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);
 
 
   const toggleCategoryDropdown = () => {
@@ -36,13 +36,13 @@ function Header() {
   };
 
 
-  // function toggleTheme() {
-  //   if (theme === "light-theme") {
-  //     setTheme("dark-theme");
-  //   } else {
-  //     setTheme("light-theme");
-  //   }
-  // }
+  function toggleTheme() {
+    if (theme === "light-theme") {
+      setTheme("dark-theme");
+    } else {
+      setTheme("light-theme");
+    }
+  }
 
   return (
     <header>
@@ -93,7 +93,7 @@ function Header() {
             </ul>
           </li>
 
-          {/* <li>
+          <li>
             <Link className="no-underline font-semibold" to="#" onClick={toggleTheme}>
               <input type="checkbox" className="checkbox" id="checkbox" />
               <label htmlFor="checkbox" className="checkbox-label">
@@ -102,8 +102,8 @@ function Header() {
                 <span className="ball"></span>
               </label>
             </Link>
-          </li>*/}
-        </ul> 
+          </li>
+        </ul>
 
         <div className={active ? "ham-burger z-index-100 ham-open" : "ham-burger z-index-100"} onClick={() => { setActive(!active) }}>
           <span className="lines line-1"></span>
