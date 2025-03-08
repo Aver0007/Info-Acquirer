@@ -58,8 +58,9 @@ app.get("/all-news", (req, res)=>
     fetchNews(Url, res);
 })
 
-//top-headlines
+
 app.options("/top-headlines", cors());
+
 app.get("/top-headlines", (req, res)=>
 {
     let pageSize= parseInt(req.query.pageSize)||80;
@@ -69,8 +70,8 @@ app.get("/top-headlines", (req, res)=>
     fetchNews(Url, res);
 })
 
-//country
 app.options("/country/:iso", cors());
+
 app.get("/country/:iso", (req, res)=>
 {
     let pageSize= parseInt(req.query.pageSize)||80;
@@ -80,7 +81,7 @@ app.get("/country/:iso", (req, res)=>
     fetchNews(Url, res);  
 })
 
-//port
+
 
 const PORT= process.env.PORT||3000;
 
